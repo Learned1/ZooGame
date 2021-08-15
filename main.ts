@@ -10,11 +10,26 @@ function World () {
 }
 function Bubbles () {
     if (Bubble.y <= 10) {
-        Bubble.y = 160
+        Bubble.y = randint(130, 160)
+        Bubble.x = randint(0, 120)
+    } else if (Bubble1.y <= 10) {
+        Bubble1.y = randint(130, 160)
+        Bubble1.x = randint(0, 120)
+    } else if (Bubble2.y <= 10) {
+        Bubble2.y = randint(130, 160)
+        Bubble2.x = randint(0, 120)
+    } else if (Bubble3.y <= 10) {
+        Bubble3.y = randint(130, 160)
+        Bubble3.x = randint(0, 120)
+    }
+    if (ZooFish1.isHittingTile(CollisionDirection.Right)) {
+        ZooFish1.setImage(assets.image`myImage1`)
+    } else if (ZooFish1.isHittingTile(CollisionDirection.Left)) {
+        ZooFish1.setImage(assets.image`myImage2`)
     }
 }
 function Fish () {
-    tiles.setTilemap(tilemap`level7`)
+    tiles.setTilemap(tilemap`level8`)
     scene.setBackgroundImage(img`
         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -158,7 +173,7 @@ function Fish () {
         `, SpriteKind.bubble)
     Bubble.setPosition(randint(10, 110), randint(10, 150))
     Bubble.setVelocity(0, -15)
-    Bubble = sprites.create(img`
+    Bubble1 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . 9 9 9 9 9 9 9 9 . . . . . 
@@ -176,7 +191,53 @@ function Fish () {
         . . 9 . . . . . . . . 9 . . . . 
         . . . 9 9 9 9 9 9 9 9 . . . . . 
         `, SpriteKind.bubble)
+    Bubble1.setPosition(randint(10, 110), randint(10, 150))
+    Bubble1.setVelocity(0, -15)
+    Bubble2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . 9 9 9 9 9 9 9 9 . . . . . 
+        . . 9 . . . . . . . . 9 . . . . 
+        . 9 . . 1 . . . . . . . 9 . . . 
+        . 9 . 1 . . . . . . . . 9 . . . 
+        9 . 1 1 . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        . 9 . . . . . . . . . . 9 . . . 
+        . 9 . . . . . . . . . . 9 . . . 
+        . . 9 . . . . . . . . 9 . . . . 
+        . . . 9 9 9 9 9 9 9 9 . . . . . 
+        `, SpriteKind.bubble)
+    Bubble2.setPosition(randint(10, 110), randint(10, 150))
+    Bubble2.setVelocity(0, -15)
+    Bubble3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . 9 9 9 9 9 9 9 9 . . . . . 
+        . . 9 . . . . . . . . 9 . . . . 
+        . 9 . . 1 . . . . . . . 9 . . . 
+        . 9 . 1 . . . . . . . . 9 . . . 
+        9 . 1 1 . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        9 . . . . . . . . . . . . 9 . . 
+        . 9 . . . . . . . . . . 9 . . . 
+        . 9 . . . . . . . . . . 9 . . . 
+        . . 9 . . . . . . . . 9 . . . . 
+        . . . 9 9 9 9 9 9 9 9 . . . . . 
+        `, SpriteKind.bubble)
+    Bubble3.setPosition(randint(10, 110), randint(10, 150))
+    Bubble3.setVelocity(0, -15)
     fish = true
+    ZooFish1 = sprites.create(assets.image`myImage2`, SpriteKind.Player)
+    ZooFish1.y = randint(0, 160)
+    ZooFish1.setVelocity(50, 0)
+    ZooFish1.setBounceOnWall(true)
 }
 function House () {
     if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile12`)) {
@@ -216,11 +277,12 @@ function BGMenu () {
     }
 }
 function Zoo () {
-    LoadZone(1)
     if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile1`)) {
-    	
+        LoadZone(1)
     } else if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile6`)) {
         LoadZone(4)
+    } else if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`transparency16`)) {
+    	
     }
 }
 function StartGame () {
@@ -424,6 +486,10 @@ let Boy: Sprite = null
 let BGcursor: Sprite = null
 let BGChoosing = 0
 let fish = false
+let ZooFish1: Sprite = null
+let Bubble3: Sprite = null
+let Bubble2: Sprite = null
+let Bubble1: Sprite = null
 let Bubble: Sprite = null
 let ZooPlayer: Sprite = null
 let BGmenu = false

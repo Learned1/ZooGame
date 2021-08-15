@@ -19,6 +19,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "mario"
     },
+    "image5": {
+        "data": "hwQSABAAAAAAAADwDwAAAAAAAE/0DwAAAADwRPT0AAAAAE//REQPAADwRBFERA8AAPBERPT//w8AT0RURUFE9PBERFVERET08EREREREVfQAT0RVRURE9ADwFET0RUQPAPAUUVVP/wAAAE9BRPQAAAAAT0RE9AAAAPBERUVFDwAAT1RFVVX0AADwVERERA8AAAD/////AAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage1"
+    },
+    "image6": {
+        "data": "hwQSABAAAAAAAP////8AAADwVERERA8AAE9URVVV9AAA8ERFRUUPAAAAT0RE9AAAAABPQUT0AAAA8BRRVU//AADwFET0RUQPAE9EVUVERPTwRERERERV9PBERFVERET0AE9EVEVBRPQA8ERE9P//DwDwRBFERA8AAABP/0REDwAAAPBE9PQAAAAAAE/0DwAAAAAA8A8AAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage2"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
