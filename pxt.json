@@ -17,8 +17,7 @@
         "tilemap.g.ts",
         "images.g.jres",
         "images.g.ts",
-        "assets.ts",
-        null
+        "assets.ts"
     ],
     "testFiles": [
         "test.ts"
