@@ -1,5 +1,27 @@
 namespace SpriteKind {
     export const bubble = SpriteKind.create()
+    export const Animal = SpriteKind.create()
+}
+function tick () {
+    if (BGmenu) {
+        BGMenu()
+    }
+    if (house) {
+        House()
+        YXCall = true
+    }
+    if (world) {
+        World()
+    }
+    if (zoo) {
+        Zoo()
+    }
+    if (fish) {
+        Bubbles()
+    }
+    if (lioncage) {
+        Lion(false)
+    }
 }
 function World () {
     if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile0`)) {
@@ -239,6 +261,22 @@ function Fish () {
     ZooFish1.setVelocity(50, 0)
     ZooFish1.setBounceOnWall(true)
 }
+function Lion (Setup: boolean) {
+    if (Setup) {
+        tiles.setTilemap(tilemap`level15`)
+        Lions = [sprites.create(assets.image`lion`, SpriteKind.Animal), sprites.create(assets.image`lioness`, SpriteKind.Animal)]
+        Lions[0].setBounceOnWall(true)
+        Lions[1].setBounceOnWall(true)
+        Lions[0].setVelocity(randint(-50, 50), randint(-50, 50))
+        Lions[1].setVelocity(randint(-50, 50), randint(-50, 50))
+        lioncage = true
+    } else {
+        timer.throttle("change speed", 5000, function () {
+            Lions[0].setVelocity(randint(-50, 50), randint(-50, 50))
+            Lions[1].setVelocity(randint(-50, 50), randint(-50, 50))
+        })
+    }
+}
 function House () {
     if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile12`)) {
         LoadZone(1)
@@ -281,8 +319,8 @@ function Zoo () {
         LoadZone(1)
     } else if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile6`)) {
         LoadZone(4)
-    } else if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`transparency16`)) {
-    	
+    } else if (ZooPlayer.tileKindAt(TileDirection.Center, assets.tile`myTile13`)) {
+        LoadZone(5)
     }
 }
 function StartGame () {
@@ -385,7 +423,7 @@ function StartGame () {
     mySprite = sprites.create(assets.image`mario`, SpriteKind.Player)
     controller.moveSprite(ZooPlayer)
     scene.cameraFollowSprite(ZooPlayer)
-    tiles.setTilemap(tilemap`level3`)
+    tiles.setTilemap(tilemap`level0`)
     house = true
 }
 function start () {
@@ -450,7 +488,7 @@ function start () {
 }
 function LoadZone (Lvl: number) {
     if (Lvl == 0) {
-        tiles.setTilemap(tilemap`level3`)
+        tiles.setTilemap(tilemap`level0`)
         tiles.placeOnTile(ZooPlayer, tiles.getTileLocation(11, 12))
         world = false
         house = true
@@ -469,15 +507,15 @@ function LoadZone (Lvl: number) {
     } else if (Lvl == 4) {
         Fish()
         zoo = false
+    } else if (Lvl == 5) {
+        Lion(true)
+        zoo = false
     }
 }
 function devStart () {
     BGChoosen = 0
     StartGame()
 }
-let zoo = false
-let world = false
-let house = false
 let mySprite: Sprite = null
 let BGChoosen = 0
 let textSprite: TextSprite = null
@@ -485,31 +523,26 @@ let Girl: Sprite = null
 let Boy: Sprite = null
 let BGcursor: Sprite = null
 let BGChoosing = 0
-let fish = false
+let Lions: Sprite[] = []
 let ZooFish1: Sprite = null
 let Bubble3: Sprite = null
 let Bubble2: Sprite = null
 let Bubble1: Sprite = null
 let Bubble: Sprite = null
 let ZooPlayer: Sprite = null
+let lioncage = false
+let fish = false
+let zoo = false
+let world = false
+let YXCall = false
+let house = false
 let BGmenu = false
 scene.centerCameraAt(80, 60)
 BGmenu = true
 start()
 game.onUpdate(function () {
-    if (BGmenu) {
-        BGMenu()
-    }
-    if (house) {
-        House()
-    }
-    if (world) {
-        World()
-    }
-    if (zoo) {
-        Zoo()
-    }
-    if (fish) {
-        Bubbles()
+    tick()
+    if (YXCall) {
+        console.log("" + ZooPlayer.x + "," + ZooPlayer.y)
     }
 })
