@@ -31,6 +31,9 @@ function World () {
     }
 }
 function Bubbles () {
+    if (controller.B.isPressed()) {
+        LoadZone(2)
+    }
     if (Bubble.y <= 10) {
         Bubble.y = randint(130, 160)
         Bubble.x = randint(0, 120)
